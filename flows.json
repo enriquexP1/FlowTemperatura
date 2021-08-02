@@ -1,0 +1,285 @@
+[
+    {
+        "id": "c4830cda9e8f2e2f",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "3afe2b7427a3b947",
+        "type": "inject",
+        "z": "c4830cda9e8f2e2f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 180,
+        "wires": [
+            [
+                "9372dde16f962ed1"
+            ]
+        ]
+    },
+    {
+        "id": "9372dde16f962ed1",
+        "type": "function",
+        "z": "c4830cda9e8f2e2f",
+        "name": "",
+        "func": "var date = new Date(msg.payload);\nmsg.payload = date.toString();\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 180,
+        "wires": [
+            [
+                "f20c80ec18277d53",
+                "e84ff540ca2c507f"
+            ]
+        ]
+    },
+    {
+        "id": "e84ff540ca2c507f",
+        "type": "debug",
+        "z": "c4830cda9e8f2e2f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "f20c80ec18277d53",
+        "type": "ui_text",
+        "z": "c4830cda9e8f2e2f",
+        "group": "ddc0d863856bc750",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Fecha",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "x": 580,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "4402ef45c4a7ee8a",
+        "type": "ui_gauge",
+        "z": "c4830cda9e8f2e2f",
+        "name": "",
+        "group": "ddc0d863856bc750",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperatura",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 10,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 710,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "2c8e7763836aa315",
+        "type": "function",
+        "z": "c4830cda9e8f2e2f",
+        "name": "ID",
+        "func": "msg.payload = msg.payload.ID;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 340,
+        "wires": [
+            [
+                "c30ba6c66e90cd3b"
+            ]
+        ]
+    },
+    {
+        "id": "49589ab9c6ffc456",
+        "type": "mqtt in",
+        "z": "c4830cda9e8f2e2f",
+        "name": "",
+        "topic": "codigoIoT/SIC/flow3/temp",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "52bf317e33c6e055",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "x": 110,
+        "y": 320,
+        "wires": [
+            [
+                "d5716245450f3202"
+            ]
+        ]
+    },
+    {
+        "id": "d5716245450f3202",
+        "type": "json",
+        "z": "c4830cda9e8f2e2f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 310,
+        "y": 320,
+        "wires": [
+            [
+                "2c8e7763836aa315",
+                "f565278d9f9c990d",
+                "934310aeb22aa794"
+            ]
+        ]
+    },
+    {
+        "id": "f565278d9f9c990d",
+        "type": "function",
+        "z": "c4830cda9e8f2e2f",
+        "name": "msng",
+        "func": "msg.payload = msg.payload.mnsg;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 440,
+        "wires": [
+            [
+                "4e0b4a80098413ac"
+            ]
+        ]
+    },
+    {
+        "id": "934310aeb22aa794",
+        "type": "function",
+        "z": "c4830cda9e8f2e2f",
+        "name": "temp",
+        "func": "msg.payload = msg.payload.Temp;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 540,
+        "wires": [
+            [
+                "4402ef45c4a7ee8a"
+            ]
+        ]
+    },
+    {
+        "id": "4e0b4a80098413ac",
+        "type": "ui_text",
+        "z": "c4830cda9e8f2e2f",
+        "group": "ddc0d863856bc750",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Mensaje",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 680,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "c30ba6c66e90cd3b",
+        "type": "ui_text",
+        "z": "c4830cda9e8f2e2f",
+        "group": "ddc0d863856bc750",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "ID",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 680,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "ddc0d863856bc750",
+        "type": "ui_group",
+        "name": "Fecha",
+        "tab": "17de12619d18f7a3",
+        "order": 1,
+        "disp": true,
+        "width": "8",
+        "collapse": false
+    },
+    {
+        "id": "52bf317e33c6e055",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "3.66.119.222",
+        "port": "1883",
+        "clientid": "EnriquexP12334",
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "17de12619d18f7a3",
+        "type": "ui_tab",
+        "name": "Fechin",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
